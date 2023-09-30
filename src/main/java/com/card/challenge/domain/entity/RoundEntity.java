@@ -27,9 +27,9 @@ public class RoundEntity extends DefaultBaseEntity {
     @Column(name = "deck_id")
     private String deckId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "round")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "round")
     private List<PlayerEntity> players = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "round")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "round")
     private List<RoundWinnerEntity> winners = new ArrayList<>();
 }

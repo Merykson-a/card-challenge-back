@@ -2,7 +2,7 @@ CREATE TABLE rounds
 (
     id           INT         NOT NULL IDENTITY (1,1),
     created_at   DATETIME    NOT NULL,
-    finalized_at DATETIME    NOT NULL,
+    finalized_at DATETIME,
     deck_id      VARCHAR(12) NOT NULL,
 
     CONSTRAINT round_id_pk PRIMARY KEY (id)
