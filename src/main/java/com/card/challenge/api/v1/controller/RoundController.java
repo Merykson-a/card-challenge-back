@@ -1,9 +1,9 @@
 package com.card.challenge.api.v1.controller;
 
 import com.card.challenge.api.v1.controller.docs.RoundControllerDoc;
-import com.card.challenge.api.v1.io.RoundMapper;
-import com.card.challenge.api.v1.io.RoundStartRequest;
-import com.card.challenge.api.v1.io.RoundStartResponse;
+import com.card.challenge.api.v1.io.round.RoundMapper;
+import com.card.challenge.api.v1.io.round.RoundStartRequest;
+import com.card.challenge.api.v1.io.round.RoundStartResponse;
 import com.card.challenge.domain.entity.RoundEntity;
 import com.card.challenge.domain.service.RoundService;
 import lombok.AllArgsConstructor;

@@ -1,12 +1,12 @@
 package com.card.challenge.domain.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +19,10 @@ import java.util.List;
 public class RoundEntity extends DefaultBaseEntity {
 
     @Column(name = "created_at")
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "finalized_at")
-    private OffsetDateTime finalizedAt;
+    private LocalDateTime finalizedAt;
 
     @Column(name = "deck_id")
     private String deckId;

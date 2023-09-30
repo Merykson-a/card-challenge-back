@@ -1,6 +1,8 @@
 package com.card.challenge.domain.service.impl;
 
-import com.card.challenge.api.v1.io.RoundStartRequest;
+import com.card.challenge.api.v1.feign.CardDeckFeignClient;
+import com.card.challenge.api.v1.io.deck.NewDeckResponse;
+import com.card.challenge.api.v1.io.round.RoundStartRequest;
 import com.card.challenge.domain.entity.PlayerEntity;
 import com.card.challenge.domain.entity.RoundEntity;
 import com.card.challenge.domain.repository.RoundRepository;
@@ -8,8 +10,9 @@ import com.card.challenge.domain.service.RoundService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,13 +20,16 @@ import java.util.stream.Collectors;
 public class RoundServiceImpl implements RoundService {
 
     private final RoundRepository roundRepository;
+    private final CardDeckFeignClient cardDeckFeignClient;
 
     @Override
     public RoundEntity start(RoundStartRequest request) {
         RoundEntity round = new RoundEntity();
-        round.setCreatedAt(OffsetDateTime.now());
+        round.setCreatedAt(LocalDateTime.now());
         round.setPlayers(getPlayersByEntityAndRequest(round, request));
-        round.setDeckId("deckId1234");
+
+        NewDeckResponse deck = cardDeckFeignClient.create().getBody();
+        round.setDeckId(Objects.requireNonNull(deck).getDeck_id());
         return roundRepository.save(round);
     }
 

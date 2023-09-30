@@ -1,4 +1,4 @@
-package com.card.challenge.api.v1.io;
+package com.card.challenge.api.v1.io.round;
 
 import lombok.Getter;
 import lombok.Setter;
