@@ -41,7 +41,6 @@ public class RoundServiceImpl implements RoundService {
     @Override
     public RoundEntity start(RoundStartRequest request) {
         RoundEntity round = new RoundEntity();
-
         round.setCreatedAt(now());
         round.setPlayers(getPlayersByEntityAndRequest(round, request));
 
@@ -61,31 +60,30 @@ public class RoundServiceImpl implements RoundService {
 
     @Override
     public RoundEntity finish(int roundId) {
-        RoundEntity entity = getById(roundId);
-        if (entity.getFinalizedAt() == null) {
-            if (hasPlayerWithoutPlayDate(entity.getPlayers())) {
-                throw new RuntimeException("Ainda possui jogadores que não puxaram cartas");
+        RoundEntity round = getById(roundId);
+
+        if (!round.isFinished()) {
+            if (haveAllPlayersPlayed(round.getPlayers())) {
+                round.setFinalizedAt(now());
+                round.setWinners(getWinnerPlayers(round));
+                return roundRepository.save(round);
             }
-            else {
-                entity.setFinalizedAt(now());
-                entity.setWinners(getWinnersByEntity(entity));
-                return roundRepository.save(entity);
-            }
+            throw new RuntimeException("Ainda existem jogadores que não retiraram cartas.");
         }
-        return entity;
+        return round;
     }
 
-    private boolean hasPlayerWithoutPlayDate(List<PlayerEntity> players) {
-        return players.stream().anyMatch(player -> player.getPlayDate() == null);
+    private boolean haveAllPlayersPlayed(List<PlayerEntity> players) {
+        return players.stream().anyMatch(player -> player.getPlayDate() != null);
     }
 
-    private List<RoundWinnerEntity> getWinnersByEntity(RoundEntity entity) {
-        List<RoundWinnerEntity> playerResults = getPlayerResults(entity);
-        int biggestResult = playerResults.stream().mapToInt(RoundWinnerEntity::getResult).max().orElse(0);
-        return playerResults.stream().filter(item -> item.getResult() == biggestResult).collect(Collectors.toList());
+    private List<RoundWinnerEntity> getWinnerPlayers(RoundEntity entity) {
+        List<RoundWinnerEntity> playersResults = getPlayersResults(entity);
+        int biggestResult = playersResults.stream().mapToInt(RoundWinnerEntity::getResult).max().orElse(0);
+        return playersResults.stream().filter(item -> item.getResult() == biggestResult).collect(Collectors.toList());
     }
 
-    private List<RoundWinnerEntity> getPlayerResults(RoundEntity entity) {
+    private List<RoundWinnerEntity> getPlayersResults(RoundEntity entity) {
         return entity.getPlayers().stream().map(player -> {
             List<CardResponse> cards = getCards(entity.getDeckId(), player.getId());
             RoundWinnerEntity winner = new RoundWinnerEntity();

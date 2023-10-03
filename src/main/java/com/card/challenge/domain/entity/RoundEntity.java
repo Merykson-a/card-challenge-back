@@ -32,4 +32,8 @@ public class RoundEntity extends DefaultBaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "round")
     private List<RoundWinnerEntity> winners = new ArrayList<>();
+
+    public boolean isFinished() {
+        return finalizedAt != null;
+    }
 }
