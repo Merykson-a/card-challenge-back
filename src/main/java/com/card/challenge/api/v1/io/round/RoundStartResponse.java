@@ -1,5 +1,6 @@
 package com.card.challenge.api.v1.io.round;
 
+import com.card.challenge.api.v1.io.round.player.RoundPlayerResponse;
 import lombok.Getter;
 import lombok.Setter;
 

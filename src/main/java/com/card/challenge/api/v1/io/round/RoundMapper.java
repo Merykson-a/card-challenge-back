@@ -1,5 +1,6 @@
 package com.card.challenge.api.v1.io.round;
 
+import com.card.challenge.api.v1.io.round.player.RoundPlayerResponse;
 import com.card.challenge.domain.entity.PlayerEntity;
 import com.card.challenge.domain.entity.RoundEntity;
 import org.springframework.stereotype.Component;
@@ -19,11 +20,8 @@ public class RoundMapper {
     }
 
     private List<RoundPlayerResponse> getPlayersByEntities(List<PlayerEntity> players) {
-        return players.stream().map(player -> {
-            RoundPlayerResponse response = new RoundPlayerResponse();
-            response.setId(player.getId());
-            response.setName(player.getName());
-            return response;
-        }).collect(Collectors.toList());
+        return players.stream()
+                      .map(player -> new RoundPlayerResponse(player.getId(), player.getName()))
+                      .collect(Collectors.toList());
     }
 }
