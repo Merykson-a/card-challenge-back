@@ -4,7 +4,7 @@ import com.card.challenge.api.v1.controller.docs.RoundControllerDoc;
 import com.card.challenge.api.v1.io.round.RoundMapper;
 import com.card.challenge.api.v1.io.round.RoundStartRequest;
 import com.card.challenge.api.v1.io.round.RoundStartResponse;
-import com.card.challenge.api.v1.io.round.player.PlayerDrawCardResponse;
+import com.card.challenge.api.v1.io.round.player.PlayerDrawnCardsResponse;
 import com.card.challenge.api.v1.io.round.player.PlayerMapper;
 import com.card.challenge.domain.entity.PlayerEntity;
 import com.card.challenge.domain.entity.RoundEntity;
@@ -34,8 +34,8 @@ public class RoundController implements RoundControllerDoc {
 
     @PostMapping("/players/{playerId}/cards/draw")
     @Override
-    public ResponseEntity<PlayerDrawCardResponse> drawCards(@PathVariable int playerId) {
+    public ResponseEntity<PlayerDrawnCardsResponse> drawCards(@PathVariable int playerId) {
         PlayerEntity player = playerService.drawCardsById(playerId);
-        return new ResponseEntity<>(playerMapper.getDrawCardResponseByEntity(player), HttpStatus.OK);
+        return new ResponseEntity<>(playerMapper.getDrawnCardsResponseByEntity(player), HttpStatus.OK);
     }
 }

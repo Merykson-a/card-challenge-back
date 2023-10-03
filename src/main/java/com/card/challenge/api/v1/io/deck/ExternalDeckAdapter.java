@@ -15,7 +15,7 @@ import java.util.stream.StreamSupport;
 import static java.util.Collections.emptyList;
 
 @Component
-public class ExternalDeckMapper {
+public class ExternalDeckAdapter {
 
     public List<CardResponse> getCardsByHandAndHandKey(DeckHandResponse deckHands, int handKey) {
         String json = Json.pretty(deckHands.getPiles());
@@ -35,7 +35,7 @@ public class ExternalDeckMapper {
             return objectMapper.readTree(json).get(String.valueOf(handKey)).get("cards").elements();
         }
         catch (JsonProcessingException e) {
-            throw new RuntimeException("Não foi possível obter as cartas");
+            throw new RuntimeException("Não foi possível obter as cartas da API externa, contate o administrador");
         }
     }
 

@@ -1,7 +1,7 @@
 package com.card.challenge.api.v1.feign;
 
 import com.card.challenge.api.v1.io.deck.DeckHandResponse;
-import com.card.challenge.api.v1.io.deck.DrawCardsResponse;
+import com.card.challenge.api.v1.io.deck.DrawnCardsResponse;
 import com.card.challenge.api.v1.io.deck.NewDeckResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +19,10 @@ public interface CardDeckFeignClient {
     void shuffle(@PathVariable String deckId);
 
     @GetMapping("/{deckId}/draw/?count=5")
-    DrawCardsResponse drawCards(@PathVariable String deckId);
+    DrawnCardsResponse drawCards(@PathVariable String deckId);
 
     @GetMapping("/{deckId}/pile/{pileKey}/add/")
-    DrawCardsResponse createPlayerHand(@PathVariable String deckId, @PathVariable int pileKey,
+    DrawnCardsResponse createPlayerHand(@PathVariable String deckId, @PathVariable int pileKey,
             @RequestParam String cards);
 
     @GetMapping("/{deckId}/pile/{pileKey}/list")

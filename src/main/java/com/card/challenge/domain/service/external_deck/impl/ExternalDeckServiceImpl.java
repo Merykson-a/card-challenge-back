@@ -3,7 +3,7 @@ package com.card.challenge.domain.service.external_deck.impl;
 import com.card.challenge.api.v1.feign.CardDeckFeignClient;
 import com.card.challenge.api.v1.io.deck.CardResponse;
 import com.card.challenge.api.v1.io.deck.DeckHandResponse;
-import com.card.challenge.api.v1.io.deck.DrawCardsResponse;
+import com.card.challenge.api.v1.io.deck.DrawnCardsResponse;
 import com.card.challenge.api.v1.io.deck.NewDeckResponse;
 import com.card.challenge.domain.service.external_deck.ExternalDeckService;
 import lombok.AllArgsConstructor;
@@ -25,11 +25,11 @@ public class ExternalDeckServiceImpl implements ExternalDeckService {
     @Override
     public void drawCards(String deckId, int pileKey) {
         cardDeckFeignClient.shuffle(deckId);
-        DrawCardsResponse response = cardDeckFeignClient.drawCards(deckId);
+        DrawnCardsResponse response = cardDeckFeignClient.drawCards(deckId);
         cardDeckFeignClient.createPlayerHand(deckId, pileKey, getCardValues(response));
     }
 
-    private String getCardValues(DrawCardsResponse response) {
+    private String getCardValues(DrawnCardsResponse response) {
         return response.getCards().stream().map(CardResponse::getCode).collect(Collectors.joining(","));
     }
 

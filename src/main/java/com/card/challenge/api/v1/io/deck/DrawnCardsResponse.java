@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class DrawCardsResponse {
+public class DrawnCardsResponse {
     private String deck_id;
     private List<CardResponse> cards;
 }

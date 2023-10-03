@@ -8,8 +8,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PlayerDrawCardResponse {
+public class PlayerDrawnCardsResponse {
     private int roundId;
     private int playerId;
-    private List<CardResponse> drawCards;
+    private List<CardResponse> drawnCards;
 }

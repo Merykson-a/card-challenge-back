@@ -2,7 +2,7 @@ package com.card.challenge.api.v1.io.round.player;
 
 import com.card.challenge.api.v1.io.deck.CardResponse;
 import com.card.challenge.api.v1.io.deck.DeckHandResponse;
-import com.card.challenge.api.v1.io.deck.ExternalDeckMapper;
+import com.card.challenge.api.v1.io.deck.ExternalDeckAdapter;
 import com.card.challenge.domain.entity.PlayerEntity;
 import com.card.challenge.domain.service.external_deck.ExternalDeckService;
 import lombok.AllArgsConstructor;
@@ -15,19 +15,19 @@ import java.util.List;
 public class PlayerMapper {
 
     private final ExternalDeckService externalDeckService;
-    private final ExternalDeckMapper externalDeckMapper;
+    private final ExternalDeckAdapter externalDeckAdapter;
 
-    public PlayerDrawCardResponse getDrawCardResponseByEntity(PlayerEntity player) {
-        PlayerDrawCardResponse response = new PlayerDrawCardResponse();
+    public PlayerDrawnCardsResponse getDrawnCardsResponseByEntity(PlayerEntity player) {
+        PlayerDrawnCardsResponse response = new PlayerDrawnCardsResponse();
         response.setPlayerId(player.getId());
         response.setRoundId(player.getRound().getId());
-        response.setDrawCards(getDrawCards(player));
+        response.setDrawnCards(getDrawnCards(player));
         return response;
     }
 
-    private List<CardResponse> getDrawCards(PlayerEntity player) {
+    private List<CardResponse> getDrawnCards(PlayerEntity player) {
         String deckId = player.getRound().getDeckId();
         DeckHandResponse deckHands = externalDeckService.getPlayerHandsByDeckIdAndPlayerId(deckId, player.getId());
-        return externalDeckMapper.getCardsByHandAndHandKey(deckHands, player.getId());
+        return externalDeckAdapter.getCardsByHandAndHandKey(deckHands, player.getId());
     }
 }

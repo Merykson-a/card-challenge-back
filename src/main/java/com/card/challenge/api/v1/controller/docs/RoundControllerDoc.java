@@ -2,7 +2,7 @@ package com.card.challenge.api.v1.controller.docs;
 
 import com.card.challenge.api.v1.io.round.RoundStartRequest;
 import com.card.challenge.api.v1.io.round.RoundStartResponse;
-import com.card.challenge.api.v1.io.round.player.PlayerDrawCardResponse;
+import com.card.challenge.api.v1.io.round.player.PlayerDrawnCardsResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -37,7 +37,7 @@ public interface RoundControllerDoc {
             @ApiResponse(responseCode = "404", description = "The resource you were trying to reach is not found",
                          content = @Content(schema = @Schema(implementation = Problem.class),
                                             mediaType = "application/json"))})
-    ResponseEntity<PlayerDrawCardResponse> drawCards(
+    ResponseEntity<PlayerDrawnCardsResponse> drawCards(
             @Parameter(name = "playerId", example = "1", required = true) int playerId);
 }
 
