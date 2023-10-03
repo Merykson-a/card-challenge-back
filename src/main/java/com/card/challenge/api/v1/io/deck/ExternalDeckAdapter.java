@@ -17,7 +17,7 @@ import static java.util.Collections.emptyList;
 @Component
 public class ExternalDeckAdapter {
 
-    public List<CardResponse> getCardsByHandAndHandKey(DeckHandResponse deckHands, int handKey) {
+    public List<CardResponse> getCardsByHandAndHandKey(ExternalDeckHandResponse deckHands, int handKey) {
         String json = Json.pretty(deckHands.getPiles());
         Iterator<JsonNode> cards = getCardsJsonNodeByGeneralJsonAndHandKey(json, handKey);
 

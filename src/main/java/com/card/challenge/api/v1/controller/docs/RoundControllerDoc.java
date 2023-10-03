@@ -1,5 +1,6 @@
 package com.card.challenge.api.v1.controller.docs;
 
+import com.card.challenge.api.v1.io.round.RoundResultResponse;
 import com.card.challenge.api.v1.io.round.RoundStartRequest;
 import com.card.challenge.api.v1.io.round.RoundStartResponse;
 import com.card.challenge.api.v1.io.round.player.PlayerDrawnCardsResponse;
@@ -30,7 +31,7 @@ public interface RoundControllerDoc {
             RoundStartRequest request);
 
     @Operation(summary = "Draw cards of round deck")
-    @ApiResponses({@ApiResponse(responseCode = "200", description = "Drawed cards"),
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Drawn cards"),
             @ApiResponse(responseCode = "400", description = "Invalid data",
                          content = @Content(schema = @Schema(implementation = Problem.class),
                                             mediaType = "application/json")),
@@ -39,5 +40,16 @@ public interface RoundControllerDoc {
                                             mediaType = "application/json"))})
     ResponseEntity<PlayerDrawnCardsResponse> drawCards(
             @Parameter(name = "playerId", example = "1", required = true) int playerId);
+
+    @Operation(summary = "Get round result")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Round result"),
+            @ApiResponse(responseCode = "400", description = "Invalid data",
+                         content = @Content(schema = @Schema(implementation = Problem.class),
+                                            mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "The resource you were trying to reach is not found",
+                         content = @Content(schema = @Schema(implementation = Problem.class),
+                                            mediaType = "application/json"))})
+    ResponseEntity<RoundResultResponse> result(
+            @Parameter(name = "roundId", example = "1", required = true) int roundId);
 }
 

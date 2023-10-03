@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DeckHandResponse {
+public class ExternalDeckHandResponse {
     private String deck_id;
     private Object piles;
 }

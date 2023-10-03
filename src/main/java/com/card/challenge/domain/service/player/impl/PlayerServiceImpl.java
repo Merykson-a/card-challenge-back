@@ -4,6 +4,7 @@ import com.card.challenge.domain.entity.PlayerEntity;
 import com.card.challenge.domain.repository.PlayerRepository;
 import com.card.challenge.domain.service.external_deck.ExternalDeckService;
 import com.card.challenge.domain.service.player.PlayerService;
+import com.card.challenge.domain.service.round.RoundService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import static java.time.LocalDateTime.now;
 @AllArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
+    private final RoundService roundService;
     private final PlayerRepository playerRepository;
     private final ExternalDeckService externalDeckService;
 
@@ -41,6 +43,7 @@ public class PlayerServiceImpl implements PlayerService {
 
         externalDeckService.drawCards(roundDeckId, player.getId());
         player.setPlayDate(now());
-        return playerRepository.save(player);
+        playerRepository.save(player);
+        return player;
     }
 }

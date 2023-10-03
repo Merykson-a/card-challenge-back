@@ -1,7 +1,7 @@
 package com.card.challenge.api.v1.feign;
 
-import com.card.challenge.api.v1.io.deck.DeckHandResponse;
 import com.card.challenge.api.v1.io.deck.DrawnCardsResponse;
+import com.card.challenge.api.v1.io.deck.ExternalDeckHandResponse;
 import com.card.challenge.api.v1.io.deck.NewDeckResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,5 +26,5 @@ public interface CardDeckFeignClient {
             @RequestParam String cards);
 
     @GetMapping("/{deckId}/pile/{pileKey}/list")
-    DeckHandResponse getPlayerHand(@PathVariable String deckId, @PathVariable int pileKey);
+    ExternalDeckHandResponse getPlayerHand(@PathVariable String deckId, @PathVariable int pileKey);
 }

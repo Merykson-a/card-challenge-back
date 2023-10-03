@@ -2,6 +2,7 @@ package com.card.challenge.api.v1.controller;
 
 import com.card.challenge.api.v1.controller.docs.RoundControllerDoc;
 import com.card.challenge.api.v1.io.round.RoundMapper;
+import com.card.challenge.api.v1.io.round.RoundResultResponse;
 import com.card.challenge.api.v1.io.round.RoundStartRequest;
 import com.card.challenge.api.v1.io.round.RoundStartResponse;
 import com.card.challenge.api.v1.io.round.player.PlayerDrawnCardsResponse;
@@ -37,5 +38,12 @@ public class RoundController implements RoundControllerDoc {
     public ResponseEntity<PlayerDrawnCardsResponse> drawCards(@PathVariable int playerId) {
         PlayerEntity player = playerService.drawCardsById(playerId);
         return new ResponseEntity<>(playerMapper.getDrawnCardsResponseByEntity(player), HttpStatus.OK);
+    }
+
+    @GetMapping("/result")
+    @Override
+    public ResponseEntity<RoundResultResponse> result(int roundId) {
+        RoundEntity round = roundService.finish(roundId);
+        return new ResponseEntity<>(roundMapper.getRoundResultResponseByEntity(round), HttpStatus.OK);
     }
 }
