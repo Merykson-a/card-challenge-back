@@ -1,13 +1,11 @@
 package com.card.challenge.api.exception_handler;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.OffsetDateTime;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Builder
 public class Problem {
