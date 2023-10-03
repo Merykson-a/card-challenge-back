@@ -11,6 +11,7 @@ import com.card.challenge.domain.repository.RoundRepository;
 import com.card.challenge.domain.service.external_deck.ExternalDeckService;
 import com.card.challenge.domain.service.round.RoundService;
 import com.card.challenge.domain.utils.Message;
+import com.card.challenge.domain.validation.round.RoundValidation;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class RoundServiceImpl implements RoundService {
 
     private final RoundRepository roundRepository;
     private final ExternalDeckService externalDeckService;
+    private final RoundValidation roundValidation;
 
     @Override
     public RoundEntity getById(int roundId) {
@@ -48,6 +50,7 @@ public class RoundServiceImpl implements RoundService {
 
         NewDeckResponse deck = externalDeckService.create();
         round.setDeckId(Objects.requireNonNull(deck).getDeck_id());
+        roundValidation.validateForStart(round);
         return roundRepository.save(round);
     }
 
