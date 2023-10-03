@@ -1,5 +1,6 @@
 package com.card.challenge.api.v1.io.deck;
 
+import com.card.challenge.domain.utils.Message;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +36,7 @@ public class ExternalDeckAdapter {
             return objectMapper.readTree(json).get(String.valueOf(handKey)).get("cards").elements();
         }
         catch (JsonProcessingException e) {
-            throw new RuntimeException("Não foi possível obter as cartas da API externa, contate o administrador");
+            throw new RuntimeException(Message.toLocale("ExternalDeck.FailedToGetCards"));
         }
     }
 

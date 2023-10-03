@@ -1,10 +1,11 @@
 package com.card.challenge.domain.service.player.impl;
 
+import com.card.challenge.api.exception_handler.IllegalValueException;
 import com.card.challenge.domain.entity.PlayerEntity;
 import com.card.challenge.domain.repository.PlayerRepository;
 import com.card.challenge.domain.service.external_deck.ExternalDeckService;
 import com.card.challenge.domain.service.player.PlayerService;
-import com.card.challenge.domain.service.round.RoundService;
+import com.card.challenge.domain.utils.Message;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,6 @@ import static java.time.LocalDateTime.now;
 @AllArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
-    private final RoundService roundService;
     private final PlayerRepository playerRepository;
     private final ExternalDeckService externalDeckService;
 
@@ -29,7 +29,7 @@ public class PlayerServiceImpl implements PlayerService {
             return optional.get();
         }
 
-        throw new EntityNotFoundException("Jogador não encotrado");
+        throw new EntityNotFoundException(Message.toLocale("Player.NotFound"));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class PlayerServiceImpl implements PlayerService {
         String roundDeckId = player.getRound().getDeckId();
 
         if (player.getPlayDate() != null) {
-            throw new RuntimeException("O jogador já jogou!");
+            throw new IllegalValueException(Message.toLocale("Player.PlayAlreadyMade"));
         }
 
         externalDeckService.drawCards(roundDeckId, player.getId());

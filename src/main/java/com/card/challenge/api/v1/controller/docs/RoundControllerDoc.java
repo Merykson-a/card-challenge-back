@@ -1,5 +1,6 @@
 package com.card.challenge.api.v1.controller.docs;
 
+import com.card.challenge.api.exception_handler.Problem;
 import com.card.challenge.api.v1.io.round.RoundResultResponse;
 import com.card.challenge.api.v1.io.round.RoundStartRequest;
 import com.card.challenge.api.v1.io.round.RoundStartResponse;
@@ -11,7 +12,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.ResponseEntity;
 
 @SuppressWarnings("unused")

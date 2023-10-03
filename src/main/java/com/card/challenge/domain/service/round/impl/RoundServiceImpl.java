@@ -1,5 +1,6 @@
 package com.card.challenge.domain.service.round.impl;
 
+import com.card.challenge.api.exception_handler.IllegalValueException;
 import com.card.challenge.api.v1.io.deck.CardResponse;
 import com.card.challenge.api.v1.io.deck.NewDeckResponse;
 import com.card.challenge.api.v1.io.round.RoundStartRequest;
@@ -9,6 +10,7 @@ import com.card.challenge.domain.entity.RoundWinnerEntity;
 import com.card.challenge.domain.repository.RoundRepository;
 import com.card.challenge.domain.service.external_deck.ExternalDeckService;
 import com.card.challenge.domain.service.round.RoundService;
+import com.card.challenge.domain.utils.Message;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +37,7 @@ public class RoundServiceImpl implements RoundService {
             return optional.get();
         }
 
-        throw new EntityNotFoundException("Partida não encontrada");
+        throw new EntityNotFoundException(Message.toLocale("Round.NotFound"));
     }
 
     @Override
@@ -68,13 +70,13 @@ public class RoundServiceImpl implements RoundService {
                 round.setWinners(getWinnerPlayers(round));
                 return roundRepository.save(round);
             }
-            throw new RuntimeException("Ainda existem jogadores que não retiraram cartas.");
+            throw new IllegalValueException(Message.toLocale("Round.Result"));
         }
         return round;
     }
 
     private boolean haveAllPlayersPlayed(List<PlayerEntity> players) {
-        return players.stream().anyMatch(player -> player.getPlayDate() != null);
+        return players.stream().allMatch(player -> player.getPlayDate() != null);
     }
 
     private List<RoundWinnerEntity> getWinnerPlayers(RoundEntity entity) {
