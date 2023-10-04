@@ -71,7 +71,7 @@ public class RoundServiceImplTest {
         request.setPlayerNames(asList("Merykson", "Silva", "Acacio", "Souza"));
 
         Mockito.when(externalDeckService.create()).thenReturn(new NewDeckResponse());
-        
+
         roundService.start(request);
         Mockito.verify(roundValidation, times(1)).validateForStart(any());
         Mockito.verify(externalDeckService, times(1)).create();

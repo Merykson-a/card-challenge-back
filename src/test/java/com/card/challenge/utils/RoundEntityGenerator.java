@@ -20,7 +20,7 @@ public class RoundEntityGenerator {
 
     private static List<PlayerEntity> generatePlayers(RoundEntity round) {
         List<PlayerEntity> players = new ArrayList<>();
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 4; i++) {
             PlayerEntity player = new PlayerEntity();
             player.setId(i);
             player.setName("Name " + i);

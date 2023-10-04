@@ -29,10 +29,10 @@ public class RoundValidationImpl implements RoundValidation {
     }
 
     private void validatePlayerNames(RoundEntity round) {
-        round.getPlayers().forEach(player -> {
-            if (player.getName().trim().isEmpty()) {
-                throw new IllegalValueException(Message.toLocale("Round.EmptyPlayerName"));
-            }
-        });
+        if (round.getPlayers()
+                 .stream()
+                 .anyMatch(player -> player.getName() == null || player.getName().trim().isEmpty())) {
+            throw new IllegalValueException(Message.toLocale("Round.EmptyPlayerName"));
+        }
     }
 }

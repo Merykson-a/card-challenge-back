@@ -1,7 +1,6 @@
 package com.card.challenge.api.v1.io.deck;
 
 import com.card.challenge.domain.utils.Message;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.core.util.Json;
@@ -35,7 +34,7 @@ public class ExternalDeckAdapter {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readTree(json).get(String.valueOf(handKey)).get("cards").elements();
         }
-        catch (JsonProcessingException e) {
+        catch (Exception e) {
             throw new RuntimeException(Message.toLocale("ExternalDeck.FailedToGetCards"));
         }
     }
