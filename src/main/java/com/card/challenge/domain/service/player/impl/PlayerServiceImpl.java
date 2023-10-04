@@ -29,7 +29,7 @@ public class PlayerServiceImpl implements PlayerService {
             return optional.get();
         }
 
-        throw new EntityNotFoundException(Message.toLocale("Player.NotFound"));
+        throw new EntityNotFoundException(Message.toLocale("Player.Error.NotFound"));
     }
 
     @Override
@@ -38,12 +38,11 @@ public class PlayerServiceImpl implements PlayerService {
         String roundDeckId = player.getRound().getDeckId();
 
         if (player.getPlayDate() != null) {
-            throw new IllegalValueException(Message.toLocale("Player.PlayAlreadyMade"));
+            throw new IllegalValueException(Message.toLocale("Player.Error.PlayAlreadyMade"));
         }
 
         externalDeckService.drawCards(roundDeckId, player.getId());
         player.setPlayDate(now());
-        playerRepository.save(player);
-        return player;
+        return playerRepository.save(player);
     }
 }

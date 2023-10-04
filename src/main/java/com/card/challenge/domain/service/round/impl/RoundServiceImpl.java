@@ -39,7 +39,7 @@ public class RoundServiceImpl implements RoundService {
             return optional.get();
         }
 
-        throw new EntityNotFoundException(Message.toLocale("Round.NotFound"));
+        throw new EntityNotFoundException(Message.toLocale("Round.Error.NotFound"));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class RoundServiceImpl implements RoundService {
                 round.setWinners(getWinnerPlayers(round));
                 return roundRepository.save(round);
             }
-            throw new IllegalValueException(Message.toLocale("Round.Result"));
+            throw new IllegalValueException(Message.toLocale("Round.Error.Result"));
         }
         return round;
     }

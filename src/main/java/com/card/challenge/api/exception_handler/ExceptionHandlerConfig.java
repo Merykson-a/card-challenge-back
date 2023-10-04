@@ -18,7 +18,7 @@ public class ExceptionHandlerConfig extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleUncaught(Exception ex, WebRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        Problem problem = getProblem(status, Message.toLocale("Global.SomethingUnexpected"));
+        Problem problem = getProblem(status, Message.toLocale("Global.Error.SomethingUnexpected"));
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 

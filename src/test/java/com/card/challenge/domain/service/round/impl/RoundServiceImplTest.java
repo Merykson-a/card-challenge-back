@@ -62,7 +62,7 @@ public class RoundServiceImplTest {
 
         Exception exception =
                 Assertions.assertThrows(EntityNotFoundException.class, () -> roundService.getById(roundId));
-        Assertions.assertTrue(exception.getMessage().contains("Round.NotFound"));
+        Assertions.assertTrue(exception.getMessage().contains("Round.Error.NotFound"));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class RoundServiceImplTest {
         Mockito.when(roundRepository.findById(1)).thenReturn(Optional.of(round));
 
         Exception exception = Assertions.assertThrows(IllegalValueException.class, () -> roundService.finish(1));
-        Assertions.assertTrue(exception.getMessage().contains("Round.Result"));
+        Assertions.assertTrue(exception.getMessage().contains("Round.Error.Result"));
     }
 
     @Test

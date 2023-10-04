@@ -22,7 +22,7 @@ public class RoundValidationImplTest {
 
         Exception exception =
                 Assertions.assertThrows(IllegalValueException.class, () -> roundValidation.validateForStart(round));
-        Assertions.assertTrue(exception.getMessage().contains("Round.EmptyDeck"));
+        Assertions.assertTrue(exception.getMessage().contains("Round.Error.EmptyDeck"));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class RoundValidationImplTest {
 
         Exception exception =
                 Assertions.assertThrows(IllegalValueException.class, () -> roundValidation.validateForStart(round));
-        Assertions.assertTrue(exception.getMessage().contains("Round.EmptyDeck"));
+        Assertions.assertTrue(exception.getMessage().contains("Round.Error.EmptyDeck"));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class RoundValidationImplTest {
 
         Exception exception =
                 Assertions.assertThrows(IllegalValueException.class, () -> roundValidation.validateForStart(round));
-        Assertions.assertTrue(exception.getMessage().contains("Round.FourPlayers"));
+        Assertions.assertTrue(exception.getMessage().contains("Round.Error.FourPlayers"));
     }
 
     @Test
@@ -52,6 +52,6 @@ public class RoundValidationImplTest {
 
         Exception exception =
                 Assertions.assertThrows(IllegalValueException.class, () -> roundValidation.validateForStart(round));
-        Assertions.assertTrue(exception.getMessage().contains("Round.EmptyPlayerName"));
+        Assertions.assertTrue(exception.getMessage().contains("Round.Error.EmptyPlayerName"));
     }
 }

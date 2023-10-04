@@ -35,7 +35,7 @@ public class ExternalDeckAdapter {
             return objectMapper.readTree(json).get(String.valueOf(handKey)).get("cards").elements();
         }
         catch (Exception e) {
-            throw new RuntimeException(Message.toLocale("ExternalDeck.FailedToGetCards"));
+            throw new RuntimeException(Message.toLocale("ExternalDeck.Error.FailedToGetCards"));
         }
     }
 

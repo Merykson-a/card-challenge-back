@@ -18,13 +18,13 @@ public class RoundValidationImpl implements RoundValidation {
 
     private void validateDeckId(RoundEntity round) {
         if (round.getDeckId() == null || round.getDeckId().trim().isEmpty()) {
-            throw new IllegalValueException(Message.toLocale("Round.EmptyDeck"));
+            throw new IllegalValueException(Message.toLocale("Round.Error.EmptyDeck"));
         }
     }
 
     private void validatePlayerNumbers(RoundEntity round) {
         if (round.getPlayers().size() != 4) {
-            throw new IllegalValueException(Message.toLocale("Round.FourPlayers"));
+            throw new IllegalValueException(Message.toLocale("Round.Error.FourPlayers"));
         }
     }
 
@@ -32,7 +32,7 @@ public class RoundValidationImpl implements RoundValidation {
         if (round.getPlayers()
                  .stream()
                  .anyMatch(player -> player.getName() == null || player.getName().trim().isEmpty())) {
-            throw new IllegalValueException(Message.toLocale("Round.EmptyPlayerName"));
+            throw new IllegalValueException(Message.toLocale("Round.Error.EmptyPlayerName"));
         }
     }
 }
